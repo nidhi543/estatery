@@ -19,6 +19,7 @@ const HouseContextProvider = ({children}) => {
       });
       const uniqueCountries = ['Location(any)', ...new Set(allCountries)];
       setCountries(uniqueCountries);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
      //set property state
      useEffect(() => {
@@ -27,6 +28,7 @@ const HouseContextProvider = ({children}) => {
         });
         const uniqueProperties = ['Location(any)', ...new Set(allProperties)];
         setProperties(uniqueProperties);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       },[]);
     
     const handleClick = () => {
@@ -41,6 +43,7 @@ const HouseContextProvider = ({children}) => {
       const maxPrice = parseInt(price.split(' ')[2]);
        
       //setting filters
+      // eslint-disable-next-line
       const newHouses = housesData.filter((house) => {
         const housePrice = parseInt(house.price);
         // all values are selected
@@ -50,11 +53,11 @@ const HouseContextProvider = ({children}) => {
           housePrice >= minPrice &&
           housePrice <= maxPrice
         ) {
-          return house;
+          return true;
         }
         // all values are default
         if (isDefault(country) && isDefault(property) && isDefault(price)) {
-          return house;
+          return true;
         }
         // country is not default
         if (!isDefault(country) && isDefault(property) && isDefault(price)) {
@@ -67,7 +70,7 @@ const HouseContextProvider = ({children}) => {
         // price is not default
         if (!isDefault(price) && isDefault(country) && isDefault(property)) {
           if (housePrice >= minPrice && housePrice <= maxPrice) {
-            return house;
+            return true;
           }
         }
         // country and property is not default
